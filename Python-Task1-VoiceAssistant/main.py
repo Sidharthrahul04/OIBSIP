@@ -3,6 +3,10 @@ import pyttsx3
 from datetime import datetime
 import webbrowser
 
+from intents import detect_intent
+from weather import get_weather
+from reminders import set_reminder
+
 
 recognizer = sr.Recognizer()
 
@@ -40,32 +44,72 @@ while True:
 
     command = listen()
 
-    if "hello" in command:
+    if not command:
+        continue
+
+    result = detect_intent(command)
+
+    intent = result["intent"]
+    entities = result["entities"]
+
+    # Greeting
+    if intent == "GREETING":
         speak("Hello! How can I help you?")
 
-    elif "time" in command:
+    # Time
+    elif intent == "GET_TIME":
         current_time = datetime.now().strftime("%I:%M %p")
         speak(f"The current time is {current_time}.")
 
-    elif "date" in command:
+    # Date
+    elif intent == "GET_DATE":
         current_date = datetime.now().strftime("%B %d, %Y")
         speak(f"Today's date is {current_date}.")
 
-    elif "search" in command:
-        search_query = command.replace("search", "", 1).strip()
+    # Weather
+    elif intent == "WEATHER":
+        city = entities.get("city")
+
+        if city:
+            speak(f"Checking the weather in {city}.")
+            weather_result = get_weather(city)
+            speak(weather_result)
+
+        else:
+            speak("Which city would you like the weather for?")
+
+    # Web search
+    elif intent == "WEB_SEARCH":
+        search_query = entities.get("query")
 
         if search_query:
             speak(f"Searching for {search_query}.")
+
             webbrowser.open(
                 "https://www.google.com/search?q="
                 + search_query.replace(" ", "+")
             )
+
         else:
             speak("What would you like me to search for?")
 
-    elif "exit" in command or "quit" in command or "goodbye" in command:
+    # Reminder
+    elif intent == "SET_REMINDER":
+        seconds = entities.get("seconds")
+        message = entities.get("message")
+
+        if seconds is not None and message:
+            set_reminder(seconds, message, speak)
+            speak("Reminder set successfully.")
+
+        else:
+            speak("I couldn't understand the reminder time or message.")
+
+    # Exit
+    elif intent == "EXIT":
         speak("Goodbye! Have a nice day.")
         break
 
-    elif command:
+    # Unknown command
+    else:
         speak("I don't understand that command yet.")
