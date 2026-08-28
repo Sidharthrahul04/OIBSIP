@@ -1,0 +1,20 @@
+{
+    "commands": [
+        {
+            "name": "open github",
+            "action": "https://github.com"
+        },
+        {
+            "name": "open linkedin",
+            "action": "https://www.linkedin.com"
+        },
+        {
+            "name": "open google",
+            "action": "https://www.google.com"
+        },
+        {
+            "name": "open youtube",
+            "action": "https://www.youtube.com"
+        }
+    ]
+}

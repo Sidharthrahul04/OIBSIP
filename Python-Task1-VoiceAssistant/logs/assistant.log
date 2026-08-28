@@ -1,0 +1,74 @@
+2026-08-28 20:49:45,123 | INFO | Voice Assistant started.
+2026-08-28 20:49:49,439 | INFO | Command received: hey
+2026-08-28 20:49:49,440 | INFO | Intent detected: GREETING | Entities: {}
+2026-08-28 20:49:49,540 | INFO | Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-28 20:49:49,541 | INFO | Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-28 20:49:57,988 | INFO | Command received: what's the weather right now
+2026-08-28 20:49:57,989 | INFO | Intent detected: WEATHER | Entities: {'city': None}
+2026-08-28 20:50:05,639 | INFO | Command received: woodland
+2026-08-28 20:50:05,648 | INFO | Intent detected: UNKNOWN | Entities: {}
+2026-08-28 20:50:12,251 | INFO | Command received: poonam gulam
+2026-08-28 20:50:12,251 | INFO | Intent detected: UNKNOWN | Entities: {}
+2026-08-28 20:50:17,494 | INFO | Command received: hungama
+2026-08-28 20:50:17,494 | INFO | Intent detected: UNKNOWN | Entities: {}
+2026-08-28 20:50:23,351 | INFO | Command received: cheap
+2026-08-28 20:50:23,352 | INFO | Intent detected: UNKNOWN | Entities: {}
+2026-08-28 20:50:30,069 | INFO | Command received: kochi
+2026-08-28 20:50:30,070 | INFO | Intent detected: UNKNOWN | Entities: {}
+2026-08-28 20:50:35,864 | INFO | Command received: bye
+2026-08-28 20:50:35,865 | INFO | Intent detected: UNKNOWN | Entities: {}
+2026-08-28 20:50:43,323 | INFO | Command received: goodbye
+2026-08-28 20:50:43,323 | INFO | Intent detected: EXIT | Entities: {}
+2026-08-28 20:50:45,950 | INFO | Voice Assistant stopped.
+2026-08-28 21:22:53,175 - INFO - Speech recognized: hello
+2026-08-28 21:22:53,281 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-28 21:22:53,281 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-28 21:23:00,559 - INFO - Speech recognized: goodbye bye-bye
+2026-08-28 21:25:08,110 - INFO - Email sent successfully to: voiceassistant97@gmail.com
+2026-08-28 21:32:06,199 - ERROR - Q&A HTTP error: 403 Client Error: Forbidden for url: https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Who+invented+Python%3F&format=json&utf8=1&srlimit=1
+2026-08-28 21:32:06,657 - ERROR - Q&A HTTP error: 403 Client Error: Forbidden for url: https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=What+is+artificial+intelligence%3F&format=json&utf8=1&srlimit=1
+2026-08-28 21:32:07,115 - ERROR - Q&A HTTP error: 403 Client Error: Forbidden for url: https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=What+is+the+capital+of+France%3F&format=json&utf8=1&srlimit=1
+2026-08-28 21:32:52,716 - INFO - Q&A answered using Wikipedia: Python (programming language)
+2026-08-28 21:32:54,417 - INFO - Q&A answered using Wikipedia: Artificial general intelligence
+2026-08-28 21:32:56,157 - INFO - Q&A answered using Wikipedia: Closed-ended question
+2026-08-28 21:35:09,406 - INFO - Q&A question: Who invented Python?
+2026-08-28 21:35:11,122 - INFO - Q&A answered using Wikipedia: Python (programming language)
+2026-08-28 21:35:11,123 - INFO - Q&A question: What is artificial intelligence?
+2026-08-28 21:35:12,669 - INFO - Q&A answered using Wikipedia: Artificial intelligence
+2026-08-28 21:35:12,669 - INFO - Q&A question: What is the capital of France?
+2026-08-28 21:35:14,520 - INFO - Q&A answered using Wikipedia: List of capitals of France
+2026-08-28 21:42:24,427 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:24,428 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:24,428 - INFO - Custom command matched: open github
+2026-08-28 21:42:24,428 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:24,429 - INFO - Custom command matched: open linkedin
+2026-08-28 21:42:24,429 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:24,429 - INFO - Custom command matched: open google
+2026-08-28 21:42:24,429 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:32,844 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:32,845 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:32,845 - INFO - Custom command matched: open github
+2026-08-28 21:42:32,845 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:32,845 - INFO - Custom command matched: open linkedin
+2026-08-28 21:42:32,845 - INFO - Loaded 3 custom commands.
+2026-08-28 21:42:32,845 - INFO - Custom command matched: open google
+2026-08-28 21:42:32,846 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:35,358 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:35,359 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:35,359 - INFO - Custom command matched: open github
+2026-08-28 21:43:35,359 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:35,359 - INFO - Custom command matched: open linkedin
+2026-08-28 21:43:35,360 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:35,360 - INFO - Custom command matched: open google
+2026-08-28 21:43:35,360 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:49,025 - INFO - Speech recognized: open GitHub
+2026-08-28 21:43:49,027 - INFO - Loaded 3 custom commands.
+2026-08-28 21:43:49,028 - INFO - Custom command matched: open github
+2026-08-28 21:43:49,132 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-28 21:43:49,133 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-28 21:44:03,791 - WARNING - Speech could not be understood.
+2026-08-28 21:44:15,303 - INFO - Speech recognized: open LinkedIn
+2026-08-28 21:44:15,305 - INFO - Loaded 3 custom commands.
+2026-08-28 21:44:15,305 - INFO - Custom command matched: open linkedin
+2026-08-28 21:44:26,461 - INFO - Speech recognized: goodbye
+2026-08-28 21:44:26,462 - INFO - Loaded 3 custom commands.
