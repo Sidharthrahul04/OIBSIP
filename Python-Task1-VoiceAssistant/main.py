@@ -7,38 +7,258 @@ from reminders import set_reminder
 
 from services.voice_service import listen, speak
 from services.email_service import send_email
-from services.email_utils import normalize_email
+from services.email_utils import (
+    normalize_email,
+    is_valid_email
+)
 from services.qa_service import answer_question
 from services.command_service import find_custom_command
 
 
+# =========================================================
+# CANCEL COMMAND
+# =========================================================
+
 def is_cancel_command(command):
     """
-    Check whether the user wants to cancel an operation.
+    Check whether the user wants to cancel
+    the current operation.
     """
+
+    if not command:
+        return False
+
+    command = command.lower().strip()
+
+    cancel_phrases = [
+        "cancel",
+        "cancel email",
+        "cancel it",
+        "never mind",
+        "nevermind",
+        "don't send",
+        "do not send",
+        "stop"
+    ]
 
     return any(
         phrase in command
-        for phrase in [
-            "cancel",
-            "cancel email",
-            "cancel it",
-            "never mind",
-            "nevermind",
-            "don't send",
-            "do not send"
-        ]
+        for phrase in cancel_phrases
     )
 
 
+# =========================================================
+# EMAIL HANDLER
+# =========================================================
+
+def handle_email():
+    """
+    Handle the complete email composition,
+    validation, confirmation and sending process.
+    """
+
+    # -----------------------------------------------------
+    # RECIPIENT
+    # -----------------------------------------------------
+
+    speak(
+        "Who would you like to send the email to?"
+    )
+
+    recipient = listen()
+
+    if is_cancel_command(recipient):
+
+        speak(
+            "Okay. Email cancelled."
+        )
+
+        return
+
+    if not recipient:
+
+        speak(
+            "I couldn't hear the recipient email."
+        )
+
+        return
+
+    # Convert spoken email into normal email format
+
+    recipient = normalize_email(
+        recipient
+    )
+
+    # Validate email address
+
+    if not is_valid_email(recipient):
+
+        speak(
+            "I couldn't recognize a valid email address. "
+            "Please try again."
+        )
+
+        return
+
+    # -----------------------------------------------------
+    # SUBJECT
+    # -----------------------------------------------------
+
+    speak(
+        "What should the subject be?"
+    )
+
+    subject = listen()
+
+    if is_cancel_command(subject):
+
+        speak(
+            "Okay. Email cancelled."
+        )
+
+        return
+
+    if not subject:
+
+        speak(
+            "I couldn't get the email subject."
+        )
+
+        return
+
+    # -----------------------------------------------------
+    # MESSAGE
+    # -----------------------------------------------------
+
+    speak(
+        "What should I say in the email?"
+    )
+
+    message = listen()
+
+    if is_cancel_command(message):
+
+        speak(
+            "Okay. Email cancelled."
+        )
+
+        return
+
+    if not message:
+
+        speak(
+            "I couldn't get the email message."
+        )
+
+        return
+
+    # -----------------------------------------------------
+    # CONFIRMATION
+    # -----------------------------------------------------
+
+    speak(
+        f"You want to send an email to "
+        f"{recipient} with the subject "
+        f"{subject}. Should I send it?"
+    )
+
+    confirmation = listen()
+
+    if is_cancel_command(confirmation):
+
+        speak(
+            "Okay. I cancelled the email."
+        )
+
+        return
+
+    # -----------------------------------------------------
+    # SEND EMAIL
+    # -----------------------------------------------------
+
+    if any(
+        phrase in confirmation
+        for phrase in [
+            "yes",
+            "yes send it",
+            "yeah",
+            "yeah send it",
+            "yep",
+            "sure",
+            "send it",
+            "go ahead",
+            "confirm"
+        ]
+    ):
+
+        speak(
+            "Sending the email."
+        )
+
+        success, result = send_email(
+            recipient,
+            subject,
+            message
+        )
+
+        speak(
+            result
+        )
+
+        return
+
+    # -----------------------------------------------------
+    # USER SAID NO
+    # -----------------------------------------------------
+
+    if any(
+        phrase in confirmation
+        for phrase in [
+            "no",
+            "no don't send",
+            "no do not send"
+        ]
+    ):
+
+        speak(
+            "Okay. I cancelled the email."
+        )
+
+        return
+
+    # -----------------------------------------------------
+    # UNKNOWN CONFIRMATION
+    # -----------------------------------------------------
+
+    speak(
+        "I didn't understand. "
+        "Please say yes to send the email, "
+        "or say cancel to cancel it."
+    )
+
+
+# =========================================================
+# MAIN VOICE ASSISTANT LOOP
+# =========================================================
+
 while True:
+
+    # -----------------------------------------------------
+    # LISTEN
+    # -----------------------------------------------------
 
     command = listen()
 
     if not command:
         continue
 
-    result = detect_intent(command)
+    # -----------------------------------------------------
+    # DETECT INTENT
+    # -----------------------------------------------------
+
+    result = detect_intent(
+        command
+    )
 
     intent = result["intent"]
     entities = result["entities"]
@@ -47,11 +267,15 @@ while True:
     # CUSTOM COMMAND
     # =====================================================
 
-    custom_command = find_custom_command(command)
+    custom_command = find_custom_command(
+        command
+    )
 
     if custom_command:
 
-        action = custom_command.get("action")
+        action = custom_command.get(
+            "action"
+        )
 
         if action:
 
@@ -61,7 +285,9 @@ while True:
 
             try:
 
-                webbrowser.open(action)
+                webbrowser.open(
+                    action
+                )
 
             except Exception as error:
 
@@ -125,7 +351,9 @@ while True:
 
     elif intent == "WEATHER":
 
-        city = entities.get("city")
+        city = entities.get(
+            "city"
+        )
 
         if city:
 
@@ -268,161 +496,7 @@ while True:
 
     elif intent == "SEND_EMAIL":
 
-        recipient = entities.get(
-            "recipient"
-        )
-
-        subject = entities.get(
-            "subject"
-        )
-
-        message = entities.get(
-            "message"
-        )
-
-        # -------------------------------------------------
-        # Recipient
-        # -------------------------------------------------
-
-        if not recipient:
-
-            speak(
-                "Who would you like to send the email to?"
-            )
-
-            recipient = listen()
-
-            if is_cancel_command(recipient):
-
-                speak(
-                    "Okay. Email cancelled."
-                )
-
-                continue
-
-        recipient = normalize_email(
-            recipient
-        )
-
-        # -------------------------------------------------
-        # Subject
-        # -------------------------------------------------
-
-        if not subject:
-
-            speak(
-                "What should the subject be?"
-            )
-
-            subject = listen()
-
-            if is_cancel_command(subject):
-
-                speak(
-                    "Okay. Email cancelled."
-                )
-
-                continue
-
-        # -------------------------------------------------
-        # Message
-        # -------------------------------------------------
-
-        if not message:
-
-            speak(
-                "What should I say in the email?"
-            )
-
-            message = listen()
-
-            if is_cancel_command(message):
-
-                speak(
-                    "Okay. Email cancelled."
-                )
-
-                continue
-
-        # -------------------------------------------------
-        # Validate details
-        # -------------------------------------------------
-
-        if recipient and subject and message:
-
-            speak(
-                f"You want to send an email to "
-                f"{recipient} with the subject "
-                f"{subject}. Should I send it?"
-            )
-
-            confirmation = listen()
-
-            # -------------------------------------------------
-            # Confirm
-            # -------------------------------------------------
-
-            if any(
-                phrase in confirmation
-                for phrase in [
-                    "yes",
-                    "yes send it",
-                    "yeah",
-                    "yeah send it",
-                    "yep",
-                    "sure",
-                    "send it",
-                    "go ahead",
-                    "confirm"
-                ]
-            ):
-
-                success, email_result = send_email(
-                    recipient,
-                    subject,
-                    message
-                )
-
-                speak(
-                    email_result
-                )
-
-            # -------------------------------------------------
-            # Cancel
-            # -------------------------------------------------
-
-            elif is_cancel_command(
-                confirmation
-            ) or any(
-                phrase in confirmation
-                for phrase in [
-                    "no",
-                    "no don't send",
-                    "no do not send"
-                ]
-            ):
-
-                speak(
-                    "Okay. I cancelled the email."
-                )
-
-            # -------------------------------------------------
-            # Unknown confirmation
-            # -------------------------------------------------
-
-            else:
-
-                speak(
-                    "I didn't understand. "
-                    "Please say yes to send the email, "
-                    "or say cancel to cancel it."
-                )
-
-        else:
-
-            speak(
-                "I couldn't get all the email details."
-            )
+        handle_email()
 
     # =====================================================
     # EXIT

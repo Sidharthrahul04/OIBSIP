@@ -1,43 +1,24 @@
 import os
 import smtplib
+
 from email.message import EmailMessage
 
-from dotenv import load_dotenv
-
 from services.logger import logger
+from services.email_utils import (
+    normalize_email,
+    is_valid_email
+)
 
-
-# =========================================================
-# LOAD ENVIRONMENT VARIABLES
-# =========================================================
-
-load_dotenv()
-
-
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-
-
-# =========================================================
-# SEND EMAIL
-# =========================================================
 
 def send_email(recipient, subject, message):
     """
-    Send an email using the configured SMTP account.
-
-    Returns:
-        tuple:
-            (True, success message)
-            or
-            (False, error message)
+    Send an email using Gmail SMTP.
     """
 
-    # -----------------------------------------------------
-    # Configuration check
-    # -----------------------------------------------------
+    sender_email = os.getenv("EMAIL_ADDRESS")
+    sender_password = os.getenv("EMAIL_PASSWORD")
 
-    if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
+    if not sender_email or not sender_password:
 
         logger.error(
             "Email configuration is missing."
@@ -45,72 +26,54 @@ def send_email(recipient, subject, message):
 
         return (
             False,
-            "Email service is not configured."
+            "Email configuration is missing."
         )
 
-    # -----------------------------------------------------
-    # Input validation
-    # -----------------------------------------------------
+    # ---------------------------------------------
+    # Normalize recipient
+    # ---------------------------------------------
 
-    if not recipient:
+    recipient = normalize_email(recipient)
+
+    # ---------------------------------------------
+    # Validate recipient
+    # ---------------------------------------------
+
+    if not is_valid_email(recipient):
+
         logger.warning(
-            "Email sending requested without recipient."
+            f"Invalid recipient email: {recipient}"
         )
 
         return (
             False,
-            "Recipient email address is required."
-        )
-
-    if not subject:
-        logger.warning(
-            "Email sending requested without subject."
-        )
-
-        return (
-            False,
-            "Email subject is required."
-        )
-
-    if not message:
-        logger.warning(
-            "Email sending requested without message."
-        )
-
-        return (
-            False,
-            "Email message is required."
+            f"The email address {recipient} is not valid."
         )
 
     try:
 
-        # -------------------------------------------------
-        # Create email
-        # -------------------------------------------------
-
         email = EmailMessage()
 
-        email["From"] = EMAIL_ADDRESS
+        email["From"] = sender_email
         email["To"] = recipient
         email["Subject"] = subject
 
         email.set_content(message)
 
-        # -------------------------------------------------
+        # -----------------------------------------
         # Connect to Gmail SMTP
-        # -------------------------------------------------
+        # -----------------------------------------
 
         with smtplib.SMTP(
             "smtp.gmail.com",
-            587,
-            timeout=10
+            587
         ) as server:
 
             server.starttls()
 
             server.login(
-                EMAIL_ADDRESS,
-                EMAIL_PASSWORD
+                sender_email,
+                sender_password
             )
 
             server.send_message(email)
@@ -124,67 +87,28 @@ def send_email(recipient, subject, message):
             "Email sent successfully."
         )
 
-    # -----------------------------------------------------
-    # Authentication error
-    # -----------------------------------------------------
-
-    except smtplib.SMTPAuthenticationError:
+    except smtplib.SMTPAuthenticationError as error:
 
         logger.error(
-            "Email authentication failed."
+            f"Email authentication failed: {error}"
         )
 
         return (
             False,
             "Email authentication failed. "
-            "Please check your email credentials "
-            "and app password."
-        )
-
-    # -----------------------------------------------------
-    # Invalid recipient / SMTP error
-    # -----------------------------------------------------
-
-    except smtplib.SMTPRecipientsRefused:
-
-        logger.error(
-            f"Email recipient was refused: {recipient}"
-        )
-
-        return (
-            False,
-            "The recipient email address was rejected."
+            "Please check your Gmail app password."
         )
 
     except smtplib.SMTPException as error:
 
         logger.error(
-            f"SMTP error while sending email: {error}"
+            f"SMTP error: {error}"
         )
 
         return (
             False,
-            "There was a problem sending the email."
+            "I couldn't send the email."
         )
-
-    # -----------------------------------------------------
-    # Network error
-    # -----------------------------------------------------
-
-    except OSError as error:
-
-        logger.error(
-            f"Email connection error: {error}"
-        )
-
-        return (
-            False,
-            "I couldn't connect to the email server."
-        )
-
-    # -----------------------------------------------------
-    # Unexpected error
-    # -----------------------------------------------------
 
     except Exception as error:
 

@@ -1,289 +1,123 @@
-import re
-import requests
+import os
+
+from google import genai
+from dotenv import load_dotenv
 
 from services.logger import logger
 
 
-WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php"
+# =========================================================
+# LOAD ENVIRONMENT VARIABLES
+# =========================================================
 
-HEADERS = {
-    "User-Agent": "VoiceAssistant/1.0"
-}
-
-
-def clean_question(question):
-    """
-    Remove common question words so that the
-    Wikipedia search focuses on the actual topic.
-    """
-
-    question = question.lower().strip()
-
-    patterns = [
-        r"^what is ",
-        r"^what are ",
-        r"^who is ",
-        r"^who was ",
-        r"^who invented ",
-        r"^where is ",
-        r"^when was ",
-        r"^when did ",
-        r"^why is ",
-        r"^how does ",
-        r"^how do ",
-        r"^how is ",
-        r"\?$"
-    ]
-
-    for pattern in patterns:
-        question = re.sub(pattern, "", question)
-
-    return question.strip()
+load_dotenv()
 
 
-def get_search_results(query):
-    """
-    Search Wikipedia and return multiple candidate pages.
-    """
+# =========================================================
+# GEMINI CLIENT
+# =========================================================
 
-    params = {
-        "action": "query",
-        "list": "search",
-        "srsearch": query,
-        "format": "json",
-        "utf8": 1,
-        "srlimit": 5
-    }
+api_key = os.getenv("GEMINI_API_KEY")
 
-    response = requests.get(
-        WIKIPEDIA_API_URL,
-        params=params,
-        headers=HEADERS,
-        timeout=10
-    )
+if not api_key:
+    logger.error("GEMINI_API_KEY is missing.")
 
-    response.raise_for_status()
+    client = None
 
-    data = response.json()
-
-    return (
-        data
-        .get("query", {})
-        .get("search", [])
+else:
+    client = genai.Client(
+        api_key=api_key
     )
 
 
-def get_article_summary(title):
-    """
-    Retrieve the introduction of a Wikipedia article.
-    """
-
-    params = {
-        "action": "query",
-        "prop": "extracts",
-        "exintro": 1,
-        "explaintext": 1,
-        "redirects": 1,
-        "titles": title,
-        "format": "json",
-        "utf8": 1
-    }
-
-    response = requests.get(
-        WIKIPEDIA_API_URL,
-        params=params,
-        headers=HEADERS,
-        timeout=10
-    )
-
-    response.raise_for_status()
-
-    data = response.json()
-
-    pages = (
-        data
-        .get("query", {})
-        .get("pages", {})
-    )
-
-    for page in pages.values():
-
-        extract = page.get(
-            "extract",
-            ""
-        ).strip()
-
-        if extract:
-            return extract
-
-    return None
-
-
-def shorten_answer(answer, max_length=500):
-    """
-    Keep the spoken response reasonably short.
-    """
-
-    if len(answer) <= max_length:
-        return answer
-
-    shortened = answer[:max_length]
-
-    shortened = shortened.rsplit(
-        " ",
-        1
-    )[0]
-
-    return shortened + "..."
-
+# =========================================================
+# QUESTION ANSWERING
+# =========================================================
 
 def answer_question(question):
     """
-    Answer a general knowledge question using Wikipedia.
+    Answer a general knowledge question using Gemini.
     """
 
     if not question or not question.strip():
+
         return "Please ask me a question."
+
+    if client is None:
+
+        return (
+            "The question answering service "
+            "is not configured."
+        )
 
     question = question.strip()
 
     try:
 
-        # -------------------------------------------------
-        # Prepare search query
-        # -------------------------------------------------
+        prompt = f"""
+You are the question-answering component of a
+Python voice assistant.
 
-        search_query = clean_question(question)
+Answer the user's question directly.
 
-        if not search_query:
-            search_query = question
+Important rules:
 
-        logger.info(
-            f"Q&A question: {question}"
+1. Answer the EXACT question.
+2. Do not provide an unrelated article summary.
+3. Keep the answer short because it will be spoken aloud.
+4. Prefer one to three sentences.
+5. If the user asks WHO, give the person, team, or organization.
+6. If the user asks WHEN, give the relevant date or year.
+7. If the user asks WHERE, give the relevant location.
+8. If the user asks WHICH TEAM, clearly name the team.
+9. If the question asks about a specific year, pay attention to that year.
+10. Do not repeat the question.
+11. Do not use markdown.
+12. Do not say "According to Wikipedia".
+13. Do not explain your reasoning.
+14. If the question is ambiguous, briefly explain the ambiguity.
+
+User question:
+
+{question}
+"""
+
+        response = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents=prompt
         )
 
-        # -------------------------------------------------
-        # Search Wikipedia
-        # -------------------------------------------------
+        answer = response.text.strip()
 
-        search_results = get_search_results(
-            search_query
-        )
+        if not answer:
 
-        if not search_results:
-
-            logger.info(
-                f"No Q&A results for: {question}"
+            logger.warning(
+                f"Gemini returned an empty answer: {question}"
             )
 
             return (
-                "I couldn't find a reliable answer "
+                "I couldn't find a useful answer "
                 "to that question."
             )
 
-        # -------------------------------------------------
-        # Try several candidate articles
-        # -------------------------------------------------
-
-        for result in search_results:
-
-            title = result.get("title")
-
-            if not title:
-                continue
-
-            summary = get_article_summary(
-                title
-            )
-
-            if summary:
-
-                answer = shorten_answer(
-                    summary
-                )
-
-                logger.info(
-                    f"Q&A answered using Wikipedia: {title}"
-                )
-
-                return answer
-
-        return (
-            "I found the topic, but I couldn't "
-            "extract a useful answer."
+        logger.info(
+            f"Q&A answered using Gemini: {question}"
         )
 
-    # -----------------------------------------------------
-    # HTTP error
-    # -----------------------------------------------------
-
-    except requests.exceptions.HTTPError as error:
-
-        logger.error(
-            f"Q&A HTTP error: {error}"
-        )
-
-        return (
-            "The knowledge service returned "
-            "an HTTP error."
-        )
-
-    # -----------------------------------------------------
-    # Timeout
-    # -----------------------------------------------------
-
-    except requests.exceptions.Timeout:
-
-        logger.error(
-            "Q&A request timed out."
-        )
-
-        return (
-            "The knowledge service took too long "
-            "to respond."
-        )
-
-    # -----------------------------------------------------
-    # Connection error
-    # -----------------------------------------------------
-
-    except requests.exceptions.ConnectionError as error:
-
-        logger.error(
-            f"Q&A connection error: {error}"
-        )
-
-        return (
-            "I couldn't connect to the "
-            "knowledge service."
-        )
-
-    # -----------------------------------------------------
-    # Invalid response
-    # -----------------------------------------------------
-
-    except ValueError as error:
-
-        logger.error(
-            f"Invalid Q&A response: {error}"
-        )
-
-        return (
-            "The knowledge service returned "
-            "an invalid response."
-        )
-
-    # -----------------------------------------------------
-    # Unexpected error
-    # -----------------------------------------------------
+        return answer
 
     except Exception as error:
 
         logger.exception(
-            f"Unexpected Q&A error: {error}"
+            f"Gemini Q&A error: {error}"
+        )
+
+        print(
+            "Gemini Q&A error:",
+            error
         )
 
         return (
-            "Something went wrong while "
-            "answering your question."
+            "I couldn't get an answer right now. "
+            "Please try again."
         )

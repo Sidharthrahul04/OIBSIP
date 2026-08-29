@@ -1,12 +1,15 @@
-from services.email_utils import normalize_email, is_valid_email
+from services.email_utils import (
+    normalize_email,
+    is_valid_email
+)
 
 
 test_emails = [
-    "voiceassistant96@gmail.com",
-    "voice assistant 96@gmail.com",
     "voice assistant 96 at gmail dot com",
-    "john at gmail dot com",
-    "test underscore user at gmail dot com"
+    "voiceassistant96@gmail.com",
+    "john dot doe at gmail dot com",
+    "test at outlook dot com",
+    "invalid email"
 ]
 
 
@@ -14,7 +17,8 @@ for email in test_emails:
 
     normalized = normalize_email(email)
 
-    print(f"Original:   {email}")
-    print(f"Normalized: {normalized}")
-    print(f"Valid:      {is_valid_email(normalized)}")
-    print()
+    valid = is_valid_email(normalized)
+
+    print("\nOriginal:", email)
+    print("Normalized:", normalized)
+    print("Valid:", valid)

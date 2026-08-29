@@ -37,7 +37,7 @@ def extract_city(command):
 
 
 # =========================================================
-# REMINDER DETAILS EXTRACTION
+# REMINDER DETAILS
 # =========================================================
 
 def extract_reminder_details(command):
@@ -74,20 +74,16 @@ def extract_reminder_details(command):
 
 
 # =========================================================
-# WEB SEARCH QUERY EXTRACTION
+# WEB SEARCH
 # =========================================================
 
 def extract_search_query(command):
 
     search_patterns = [
-        r"^search (.+)",
         r"^search for (.+)",
-        r"^please search (.+)",
-        r"^please search for (.+)",
-        r"^can you search (.+)",
+        r"^search (.+)",
         r"^can you search for (.+)",
-        r"^could you search (.+)",
-        r"^could you search for (.+)",
+        r"^can you search (.+)",
         r"^look up (.+)",
         r"^find information about (.+)",
         r"^google (.+)"
@@ -108,6 +104,33 @@ def extract_search_query(command):
 
 
 # =========================================================
+# GENERAL QUESTION DETECTION
+# =========================================================
+
+def is_general_question(command):
+
+    question_patterns = [
+        r"^who\b",
+        r"^what\b",
+        r"^where\b",
+        r"^when\b",
+        r"^why\b",
+        r"^how\b",
+        r"^which\b",
+        r"^can you explain\b",
+        r"^tell me about\b",
+        r"^do you know\b"
+    ]
+
+    for pattern in question_patterns:
+
+        if re.search(pattern, command):
+            return True
+
+    return False
+
+
+# =========================================================
 # INTENT DETECTION
 # =========================================================
 
@@ -115,10 +138,7 @@ def detect_intent(command):
 
     command = command.lower().strip()
 
-    # =====================================================
-    # EMPTY COMMAND
-    # =====================================================
-
+    # Empty command
     if not command:
 
         return {
@@ -233,35 +253,6 @@ def detect_intent(command):
         }
 
     # =====================================================
-    # GENERAL Q&A
-    # =====================================================
-
-    if any(phrase in command for phrase in [
-        "who is",
-        "who was",
-        "who invented",
-        "what is",
-        "what are",
-        "where is",
-        "when was",
-        "when did",
-        "why is",
-        "how does",
-        "how do",
-        "how is",
-        "tell me about",
-        "can you tell me about",
-        "can you tell me"
-    ]):
-
-        return {
-            "intent": "GENERAL_QA",
-            "entities": {
-                "question": command
-            }
-        }
-
-    # =====================================================
     # WEB SEARCH
     # =====================================================
 
@@ -292,6 +283,19 @@ def detect_intent(command):
         return {
             "intent": "EXIT",
             "entities": {}
+        }
+
+    # =====================================================
+    # GENERAL Q&A
+    # =====================================================
+
+    if is_general_question(command):
+
+        return {
+            "intent": "GENERAL_QA",
+            "entities": {
+                "question": command
+            }
         }
 
     # =====================================================
