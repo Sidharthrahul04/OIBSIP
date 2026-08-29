@@ -17,7 +17,7 @@ The project was developed as part of a Python programming internship and follows
 * Web search using Google
 * Voice-based reminders
 * Email sending through Gmail SMTP
-* General knowledge Q&A using Wikipedia
+* General knowledge Q&A using gemini api
 * Custom commands using a JSON configuration file
 * Rule-based intent detection
 * Speech recognition error handling
@@ -51,7 +51,7 @@ The project was developed as part of a Python programming internship and follows
 
 * Google Speech Recognition
 * Weather API
-* Wikipedia API
+* gemini API
 * Gmail SMTP
 * Google Search
 
@@ -129,7 +129,7 @@ Appropriate Service
   |
   +----> Email --------> Gmail SMTP
   |
-  +----> Q&A ----------> Wikipedia
+  +----> Q&A ----------> gemini
   |
   +----> Search -------> Google
   |
@@ -444,7 +444,7 @@ Don't send
 
 ## 8. General Knowledge Q&A
 
-The assistant can answer general knowledge questions using Wikipedia.
+The assistant can answer general knowledge questions using gemini api.
 
 Examples:
 
@@ -456,7 +456,7 @@ What is photosynthesis?
 What is the capital of France?
 ```
 
-The Q&A service searches Wikipedia and extracts a short introductory answer.
+The Q&A service searches online via gemini and extracts a short introductory answer.
 
 If the external service is unavailable, the assistant reports the failure instead of crashing.
 
@@ -676,7 +676,7 @@ The application does not intentionally send unrelated voice or personal informat
 
 ## Q&A Requests
 
-Questions submitted to the Q&A feature are sent to Wikipedia to retrieve relevant information.
+Questions submitted to the Q&A feature are sent to gemini to retrieve relevant information.
 
 Users should avoid submitting confidential information as questions.
 
