@@ -29,7 +29,7 @@ The application provides a graphical user interface where users can choose the p
 | Technology | Purpose |
 |------------|---------|
 | Python | Application programming language |
-| Tkinter | Graphical user interface |
+| Tkinter | Desktop graphical user interface |
 | secrets | Secure random password generation |
 | string | Standard character sets |
 | Pyperclip | Clipboard functionality |
@@ -38,39 +38,22 @@ The application provides a graphical user interface where users can choose the p
 
 ## 🏗️ Project Architecture
 
-The project follows a simple modular structure by separating the graphical interface from the password-generation logic.
+## 🏗️ Project Architecture
 
-```text
-                    ┌─────────────────────┐
-                    │       User          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │      main.py        │
-                    │    GUI / Tkinter    │
-                    └──────────┬──────────┘
-                               │
-                    Calls password logic
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │    generator.py     │
-                    │                     │
-                    │ • Character Sets    │
-                    │ • Password Generator│
-                    │ • Strength Checker  │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Generated Password  │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────┴──────────┐
-                    ▼                     ▼
-              GUI Display            Clipboard
-                                      (Pyperclip)
+The project follows a modular structure by separating the graphical user interface from the password-generation logic.
+
+```mermaid
+flowchart TD
+    A[User] --> B[main.py<br/>Tkinter GUI]
+    B --> C[generator.py]
+    C --> D[Build Character Sets]
+    C --> E[Generate Password]
+    C --> F[Calculate Password Strength]
+    E --> G[Generated Password]
+    G --> H[Display in GUI]
+    G --> I[Copy to Clipboard<br/>Pyperclip]
+    G --> J[Session History]
+
 
 🔄 Application Workflow
 Start Application
@@ -98,12 +81,14 @@ Display Password and Strength
 Store Password in Session History
        ↓
 User Can Copy Password
-
 📁 Project Structure
 Python-Task3-RandomPasswordGenerator/
 │
-├── .venv/
-│   └── Virtual environment
+├── screenshots/
+│   ├── screenshot1.png
+│   ├── screenshot2.png
+│   ├── screenshot3.png
+│   └── screenshot4.png
 │
 ├── main.py
 │   └── Tkinter GUI and application logic
@@ -120,11 +105,13 @@ Python-Task3-RandomPasswordGenerator/
 └── README.md
     └── Project documentation
 
+The .venv/ and __pycache__/ directories are excluded from version control using .gitignore.
+
 🔐 Password Generation
 
 The application uses Python's built-in secrets module for password generation.
 
-Instead of using the regular random module, the application uses:
+Instead of using the standard random module, the application uses:
 
 secrets.choice()
 
@@ -134,7 +121,7 @@ The generated password is also securely shuffled using:
 
 secrets.SystemRandom().shuffle()
 
-This makes the password generation suitable for security-sensitive password creation.
+This approach uses a security-oriented random number generator for password creation.
 
 🎯 Character Selection
 
@@ -145,7 +132,7 @@ Lowercase letters: a-z
 Numbers: 0-9
 Symbols
 
-The application also ensures that at least one character from each selected category is included in the generated password.
+The application ensures that at least one character from each selected category is included in the generated password.
 
 For example, if the user selects:
 
@@ -154,7 +141,7 @@ Lowercase
 Numbers
 Symbols
 
-the generated password will contain at least one character from each category.
+the generated password will contain at least one character from each selected category.
 
 👁️ Ambiguous Character Exclusion
 
@@ -186,7 +173,7 @@ Strong
 
 The Copy Password button uses the Pyperclip library to copy the currently generated password to the system clipboard.
 
-This allows the user to paste the password directly into another application.
+This allows the user to paste the generated password directly into another application.
 
 🕘 Password History
 
@@ -208,19 +195,23 @@ The history is stored only while the application is running and is not saved per
 
 The application validates user input before generating a password.
 
-Examples include:
+Validation includes:
 
 Invalid or non-numeric password length
 Password length below the minimum
 Too few character categories selected
 Password length shorter than the number of selected character categories
 
-Error messages are displayed through Tkinter message boxes.
+Error messages are displayed using Tkinter message boxes.
 
 📦 Requirements
 Python 3.10 or newer
 Tkinter
 Pyperclip
+
+The external Python dependency is listed in requirements.txt:
+
+pyperclip==1.11.0
 ⚙️ Installation
 1. Clone the repository
 git clone <your-github-repository-url>
@@ -237,7 +228,7 @@ Windows Command Prompt
 python -m pip install -r requirements.txt
 ▶️ Running the Application
 
-After activating the virtual environment:
+After activating the virtual environment, run:
 
 python main.py
 
@@ -245,52 +236,15 @@ The Random Password Generator GUI will open.
 
 🖥️ How to Use
 Enter the required password length.
-Select the character types you want.
+Select the character types you want to include.
 Enable ambiguous-character exclusion if required.
 Click Generate Password.
 Review the generated password.
 Check the displayed password strength.
-Click Copy Password if you want to copy it.
+Click Copy Password to copy the password.
 View previously generated passwords in the session history.
 🔒 Security Considerations
-
-The application uses Python's secrets module rather than the standard random module for password generation.
-
-Passwords are generated in memory and the application does not store them permanently in a file or database.
-
-The password history is maintained only for the current application session.
-
-🚀 Future Improvements
-
-Possible future enhancements include:
-
-Password visibility toggle
-Custom password patterns
-Password strength meter with more detailed scoring
-Securely clearing clipboard contents after a configurable period
-Option to clear password history
-Dark mode
-Password generation presets
-Export or password-manager integration
-
----
-
-## 📸 Screenshots
-
-### Main Interface
-
-![Main Interface](screenshots/screenshot1.png)
-
-### Password creaation 
-
-![Password History](screenshots/screenshot2.png)
-
-##copy to clipboard
-
-![Input Validation](screenshots/screenshot3.png)
-
-### Input Validation
-
-![Input Validation](screenshots/screenshot4.png)
-
----
+The application uses Python's secrets module instead of the standard random module for password generation.
+Passwords are generated in memory.
+Passwords are not permanently stored in a file or database.
+Password history exists only during the current application
