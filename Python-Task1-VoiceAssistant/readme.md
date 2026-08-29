@@ -826,19 +826,7 @@ Possible future improvements include:
 
 ---
 
-# Limitations
 
-The current implementation has some limitations:
-
-* Intent detection is rule-based and depends on predefined patterns.
-* External services require an active internet connection.
-* Weather information requires a valid API key.
-* Email functionality requires Gmail SMTP configuration.
-* Speech recognition accuracy depends on microphone quality and network conditions.
-* The assistant is primarily designed for Windows desktop environments.
-* The project is intended for learning and internship demonstration rather than production deployment.
-
----
 
 # Conclusion
 
