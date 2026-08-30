@@ -375,13 +375,13 @@ Through this project, the following Python concepts were practiced:
 
 ### BMI Calculator – Normal Result
 
-Add a screenshot of the program showing a valid BMI calculation.
+Add a screenshot of the program showing a invalid BMI calculation input.
 
 ![BMI Calculator Normal Result](screenshots/s1.png)
 
 ### BMI Calculator – Invalid Input
 
-Add a screenshot showing the program handling invalid input.
+Add a screenshot showing the BMI Calculation output.
 
 ![BMI Calculator Invalid Input](screenshots/s2.png)
 
