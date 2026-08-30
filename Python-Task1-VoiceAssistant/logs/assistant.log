@@ -637,3 +637,125 @@ google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429,
 2026-08-29 11:04:43,645 - INFO - Q&A answered using Gemini: who won premier league 2023
 2026-08-29 11:05:02,279 - INFO - Speech recognized: okay goodbye
 2026-08-29 11:05:02,281 - INFO - Loaded 4 custom commands.
+2026-08-30 09:27:44,911 - INFO - Speech recognized: hello
+2026-08-30 09:27:44,937 - INFO - Loaded 4 custom commands.
+2026-08-30 09:27:45,160 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-30 09:27:45,161 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-30 09:27:53,465 - INFO - Speech recognized: what's the time right now
+2026-08-30 09:27:53,466 - INFO - Loaded 4 custom commands.
+2026-08-30 09:28:00,098 - INFO - Speech recognized: what's the date today
+2026-08-30 09:28:00,099 - INFO - Loaded 4 custom commands.
+2026-08-30 09:28:08,526 - INFO - Speech recognized: search python decor
+2026-08-30 09:28:08,527 - INFO - Loaded 4 custom commands.
+2026-08-30 09:28:13,802 - WARNING - Speech could not be understood.
+2026-08-30 09:28:21,294 - WARNING - Speech could not be understood.
+2026-08-30 09:28:29,486 - INFO - Speech recognized: send an email
+2026-08-30 09:28:29,487 - INFO - Loaded 4 custom commands.
+2026-08-30 09:28:37,677 - INFO - Speech recognized: voice assistant 97@gmail.com
+2026-08-30 09:28:43,310 - INFO - Speech recognized: hey there
+2026-08-30 09:28:50,580 - INFO - Speech recognized: hello my name is voice assistant
+2026-08-30 09:28:59,897 - INFO - Speech recognized: yes
+2026-08-30 09:29:05,900 - INFO - Email sent successfully to: voiceassistant97@gmail.com
+2026-08-30 09:29:12,048 - INFO - Speech recognized: what's the weather in Chennai
+2026-08-30 09:29:12,049 - INFO - Loaded 4 custom commands.
+2026-08-30 09:29:14,403 - INFO - Weather retrieved successfully for city: Chennai
+2026-08-30 09:29:28,556 - INFO - Speech recognized: open GitHub
+2026-08-30 09:29:28,558 - INFO - Loaded 4 custom commands.
+2026-08-30 09:29:28,558 - INFO - Custom command matched: open github
+2026-08-30 09:29:33,334 - WARNING - Speech could not be understood.
+2026-08-30 09:29:41,968 - INFO - Speech recognized: what's the weather today
+2026-08-30 09:29:41,969 - INFO - Loaded 4 custom commands.
+2026-08-30 09:29:48,025 - WARNING - Speech could not be understood.
+2026-08-30 09:29:59,559 - INFO - Speech recognized: who won IPL 2033
+2026-08-30 09:29:59,560 - INFO - Loaded 4 custom commands.
+2026-08-30 09:30:01,480 - INFO - AFC is enabled with max remote calls: 10.
+2026-08-30 09:30:01,480 - WARNING - Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-08-30 09:30:07,685 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 200 OK"
+2026-08-30 09:30:07,688 - INFO - Q&A answered using Gemini: who won ipl 2033
+2026-08-30 09:30:18,430 - INFO - Speech recognized: who won April 2023
+2026-08-30 09:30:18,431 - INFO - Loaded 4 custom commands.
+2026-08-30 09:30:20,361 - INFO - AFC is enabled with max remote calls: 10.
+2026-08-30 09:30:38,309 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 200 OK"
+2026-08-30 09:30:38,313 - INFO - Q&A answered using Gemini: who won april 2023
+2026-08-30 09:30:57,075 - INFO - Speech recognized: hello
+2026-08-30 09:30:57,076 - INFO - Loaded 4 custom commands.
+2026-08-30 09:30:57,175 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-30 09:30:57,175 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-30 09:31:04,012 - INFO - Speech recognized: what's the time right now
+2026-08-30 09:31:04,012 - INFO - Loaded 4 custom commands.
+2026-08-30 09:31:10,444 - INFO - Speech recognized: what's the date today
+2026-08-30 09:31:10,445 - INFO - Loaded 4 custom commands.
+2026-08-30 09:31:18,442 - INFO - Speech recognized: what's the weather in Chennai
+2026-08-30 09:31:18,443 - INFO - Loaded 4 custom commands.
+2026-08-30 09:31:20,738 - INFO - Weather retrieved successfully for city: Chennai
+2026-08-30 09:31:37,488 - WARNING - Speech could not be understood.
+2026-08-30 09:31:45,885 - INFO - Speech recognized: search Google
+2026-08-30 09:31:45,886 - INFO - Loaded 4 custom commands.
+2026-08-30 09:31:53,257 - INFO - Speech recognized: open GitHub
+2026-08-30 09:31:53,258 - INFO - Loaded 4 custom commands.
+2026-08-30 09:31:53,258 - INFO - Custom command matched: open github
+2026-08-30 09:32:02,575 - INFO - Speech recognized: set a reminder for checking my assignment
+2026-08-30 09:32:02,576 - INFO - Loaded 4 custom commands.
+2026-08-30 09:32:10,479 - INFO - Speech recognized: set a reminder for 10 seconds to check my assignment
+2026-08-30 09:32:10,480 - INFO - Loaded 4 custom commands.
+2026-08-30 09:32:16,584 - INFO - Speech recognized: send an email
+2026-08-30 09:32:16,584 - INFO - Loaded 4 custom commands.
+2026-08-30 09:32:24,215 - INFO - Speech recognized: voice assistant 97@gmail.com
+2026-08-30 09:32:29,351 - INFO - Speech recognized: hey
+2026-08-30 09:32:36,384 - INFO - Speech recognized: my name is voice assistant
+2026-08-30 09:32:45,564 - INFO - Speech recognized: yes
+2026-08-30 09:32:51,097 - INFO - Email sent successfully to: voiceassistant97@gmail.com
+2026-08-30 09:32:58,702 - INFO - Speech recognized: who won the Premier League 2023
+2026-08-30 09:32:58,703 - INFO - Loaded 4 custom commands.
+2026-08-30 09:33:00,624 - INFO - AFC is enabled with max remote calls: 10.
+2026-08-30 09:33:00,625 - WARNING - Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-08-30 09:33:06,450 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 200 OK"
+2026-08-30 09:33:06,454 - INFO - Q&A answered using Gemini: who won the premier league 2023
+2026-08-30 09:33:17,334 - INFO - Speech recognized: set a reminder for 10 seconds to check my assignment
+2026-08-30 09:33:17,334 - INFO - Loaded 4 custom commands.
+2026-08-30 09:33:22,789 - INFO - Speech recognized: goodbye
+2026-08-30 09:33:22,790 - INFO - Loaded 4 custom commands.
+2026-08-30 09:36:51,225 - INFO - Speech recognized: hi hello
+2026-08-30 09:36:51,226 - INFO - Loaded 4 custom commands.
+2026-08-30 09:36:51,296 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-30 09:36:51,297 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-30 09:37:00,350 - INFO - Speech recognized: remind me in 10 seconds to check my assignment
+2026-08-30 09:37:00,351 - INFO - Loaded 4 custom commands.
+2026-08-30 09:37:08,848 - WARNING - Speech could not be understood.
+2026-08-30 09:37:10,353 - ERROR - TTS error: run loop already started
+2026-08-30 09:37:18,734 - WARNING - No speech detected within timeout.
+2026-08-30 09:37:32,334 - INFO - Speech recognized: hello
+2026-08-30 09:37:32,335 - INFO - Loaded 4 custom commands.
+2026-08-30 09:37:32,409 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-30 09:37:32,409 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-30 09:37:38,743 - INFO - Speech recognized: send an email
+2026-08-30 09:37:38,744 - INFO - Loaded 4 custom commands.
+2026-08-30 09:37:47,069 - INFO - Speech recognized: Siddharth Rahul won at gmail.com
+2026-08-30 09:37:53,027 - INFO - Speech recognized: hey
+2026-08-30 09:37:58,981 - INFO - Speech recognized: my name is Lisa state
+2026-08-30 09:38:17,430 - WARNING - No speech detected within timeout.
+2026-08-30 09:38:17,583 - INFO - Imported existing <module 'comtypes.gen' from 'D:\\OIBSIP\\Python-Task1-VoiceAssistant\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-30 09:38:17,583 - INFO - Using writeable comtypes cache directory: 'D:\OIBSIP\Python-Task1-VoiceAssistant\.venv\Lib\site-packages\comtypes\gen'
+2026-08-30 09:38:24,625 - INFO - Speech recognized: hello
+2026-08-30 09:38:24,626 - INFO - Loaded 4 custom commands.
+2026-08-30 09:38:33,096 - INFO - Speech recognized: remind me in 10 seconds to check my assignment
+2026-08-30 09:38:33,101 - INFO - Loaded 4 custom commands.
+2026-08-30 09:38:39,215 - INFO - Speech recognized: open GitHub
+2026-08-30 09:38:39,217 - INFO - Loaded 4 custom commands.
+2026-08-30 09:38:39,217 - INFO - Custom command matched: open github
+2026-08-30 09:38:48,559 - WARNING - Speech could not be understood.
+2026-08-30 09:38:55,764 - INFO - Speech recognized: send an email
+2026-08-30 09:38:55,765 - INFO - Loaded 4 custom commands.
+2026-08-30 09:39:03,944 - INFO - Speech recognized: voice assistant 97@gmail.com
+2026-08-30 09:39:09,065 - INFO - Speech recognized: hey there
+2026-08-30 09:39:15,219 - INFO - Speech recognized: my name is voice assistant
+2026-08-30 09:39:24,628 - INFO - Speech recognized: yes
+2026-08-30 09:39:30,403 - INFO - Email sent successfully to: voiceassistant97@gmail.com
+2026-08-30 09:39:37,550 - INFO - Speech recognized: who won IPL 2023
+2026-08-30 09:39:37,550 - INFO - Loaded 4 custom commands.
+2026-08-30 09:39:39,462 - INFO - AFC is enabled with max remote calls: 10.
+2026-08-30 09:39:39,463 - WARNING - Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-08-30 09:40:00,674 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 200 OK"
+2026-08-30 09:40:00,677 - INFO - Q&A answered using Gemini: who won ipl 2023
+2026-08-30 09:40:09,172 - INFO - Speech recognized: goodbye
+2026-08-30 09:40:09,172 - INFO - Loaded 4 custom commands.

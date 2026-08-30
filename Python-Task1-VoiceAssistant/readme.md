@@ -828,7 +828,25 @@ Possible future improvements include:
 
 ## 📸 Screenshots
 
+### Voice Assistant – Basic Commands and Responses
+![Voice Assistant – Basic Commands and Responses](screenshots/s1.png)
 
+This screenshot demonstrates the voice assistant's basic interactions, including:
+- Greeting and general responses
+- Date and time queries
+- Web search
+- Weather information
+- No-command / unrecognized input response
+
+### Voice Assistant – Advanced Commands and Features
+![Voice Assistant – Advanced Commands and Features](screenshots/s2.png)
+
+This screenshot demonstrates the voice assistant's advanced features, including:
+- Setting reminders
+- Sending emails
+- Handling wrong or unsupported commands
+- Custom search commands
+- Question and answer functionality
 
 # Conclusion
 
