@@ -338,10 +338,10 @@ Possible future enhancements include:
 ### Main Interface
 ![Main Interface](screenshots/screenshot1.png)
 
-### Password Generation
+### Cppy to clipboard
 ![Password Generation](screenshots/screenshot2.png)
 
-### Copy to Clipboard
+### Generate password
 ![Copy to Clipboard](screenshots/screenshot3.png)
 
 ### Input Validation
