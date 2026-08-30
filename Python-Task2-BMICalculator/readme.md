@@ -289,7 +289,7 @@ python bmi_calculator.py
 
 ---
 
-## Sample Output
+## Sample Output 
 
 ### Normal BMI
 
@@ -318,19 +318,6 @@ Enter your height (m): 1.64
 Error: Weight and height must be positive values.
 ```
 
----
-
-## Screenshots
-
-### BMI Calculator – Normal Result
-
-![BMI Calculator Normal Result](screenshots/bmi-normal.png)
-
-### BMI Calculator – Invalid Input
-
-![BMI Calculator Invalid Input](screenshots/bmi-invalid.png)
-
----
 
 ## Input Validation
 
