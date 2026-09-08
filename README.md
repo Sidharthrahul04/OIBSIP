@@ -33,7 +33,7 @@ A Python-based voice assistant that understands voice commands and performs vari
 
 `Python` `NLTK` `SpeechRecognition` `pyttsx3` `OpenWeather API` `Google Gemini API` `Gmail SMTP`
 
-**Project:** [View Voice Assistant]()
+**Project:** [View Voice Assistant](https://github.com/Sidharthrahul04/OIBSIP/tree/main/Python-Task1-VoiceAssistant)
 
 ---
 
@@ -55,7 +55,7 @@ A lightweight **command-line BMI Calculator** developed using Python. The applic
 
 `Python` `Conditional Statements` `Input Validation` `Exception Handling`
 
-**Project:** [View BMI Calculator]()
+**Project:** [View BMI Calculator](https://github.com/Sidharthrahul04/OIBSIP/tree/main/Python-Task2-BMICalculator)
 
 ---
 
@@ -77,7 +77,7 @@ A graphical password generator developed using **Python and Tkinter**, designed 
 
 `Python` `Tkinter` `secrets` `pyperclip`
 
-**Project:** [View Random Password Generator]()
+**Project:** [View Random Password Generator](https://github.com/Sidharthrahul04/OIBSIP/tree/main/Python-Task3-RandomPasswordGenerator)
 
 ---
 
